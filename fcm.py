@@ -61,4 +61,4 @@ def MyFCM(img,ImageType,numClust):
     # plt.savefig("clusterim2.png")
     # plt.pause(5)
 #MyClust('SanBarRGB.png', 0, 0, 4)
-MyFCM('SanBarRGB.png','RGB',3)
+#MyFCM('SanBarRGB.png','RGB',3)
