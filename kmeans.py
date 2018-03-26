@@ -21,11 +21,11 @@ def MyKmeans5(img,ImageType,numClust):
 
     kmeans= sklearn.cluster.KMeans(n_clusters=k,init="k-means++",max_iter=300).fit(img_vector)
     uT = kmeans.labels_
-    ClusterIm = np.zeros([img.shape[0], img.shape[1]])
+    ClusterIm = np.zeros([img.shape[0], img.shape[1]],int)
     for i in xrange(0, num_samples):
         row = img_pixel[i][0]
         col = img_pixel[i][1]
-        ClusterIm[row][col]=uT[i]
+        ClusterIm[row][col]=uT[i]+1
     return ClusterIm
     #ClusterIm = np.zeros([img.shape[0], img.shape[1], 3], dtype=np.float32)
     # uT = kmeans.labels_
