@@ -16,5 +16,5 @@ def DisplayImAndSegs(fileName):
     plt.show()
     return;
 
-fileName = "ImsAndTruths8049.mat"
-DisplayImAndSegs(fileName)
+#fileName = "ImsAndTruths8049.mat"
+#DisplayImAndSegs(fileName)
