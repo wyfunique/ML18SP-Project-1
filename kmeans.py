@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import sklearn.cluster
 
 def MyKmeans5(img,ImageType,numClust):
-    # img = mpimg.imread(image)
     num_features = img.shape[2]
     k=numClust
     img_vector = np.zeros([img.shape[0]*img.shape[1],num_features])
