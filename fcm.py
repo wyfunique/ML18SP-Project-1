@@ -5,9 +5,8 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import skfuzzy as fuzz
 
-def MyFCM(image,ImageType,numClust):
+def MyFCM(img,ImageType,numClust):
     k=numClust
-    img = mpimg.imread(image)
     num_features = img.shape[2]
     img_vector = np.zeros([img.shape[0]*img.shape[1],num_features])
     img_pixel = np.zeros([img.shape[0]*img.shape[1],2],int)
@@ -21,7 +20,7 @@ def MyFCM(image,ImageType,numClust):
     num_features = img_vector.shape[1]
     img_vector_T = img_vector.T
     cntr,u,u0,d,jm,p,fpc = fuzz.cmeans(img_vector_T,k,2.,error=0.05,maxiter=20)
-    ClusterIm = np.zeros([img.shape[0], img.shape[1]])
+    ClusterIm = np.zeros([img.shape[0], img.shape[1]],int)
     uT = u.T
     for i in xrange(0, num_samples):
         row = img_pixel[i][0]
