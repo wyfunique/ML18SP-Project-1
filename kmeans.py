@@ -3,7 +3,6 @@ import math
 import scipy.io as scipy
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
-import skfuzzy as fuzz
 import sklearn.cluster
 
 def MyKmeans5(image,ImageType,numClust):
