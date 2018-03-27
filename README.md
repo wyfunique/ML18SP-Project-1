@@ -18,6 +18,6 @@ Call Evaluation Instruction
 3. For score, the lower, the better. It cannot lower than 0, or higher than 1.
 4. From my understanding, the evaluation would both focus on both the connectivity and the shape of clusters. 
     For image A having M clusters and image B having N clusters, each cluster in A would iterate over each culster in B to count the number of intersected pixels |Ai^Bj|, and the number of union pixels |Ai U Bj|. (Ai represent cluster i in A, Bj represent cluster j in B). 
-    Pi = sum over j (|Ai^Bj|/|Ai U Bj|*|Bj|/|B|). 
-    socre = sum over i ((1-Pi)*|Ai|/|A|)   where |A| means the number of pixels in A.
+    Pi = sum over j (|Ai^Bj|/|Ai U Bj|\*|Bj|/|B|). 
+    socre = sum over i ((1-Pi)\*|Ai|/|A|)   where |A| means the number of pixels in A.
    
