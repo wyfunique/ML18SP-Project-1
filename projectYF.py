@@ -18,7 +18,7 @@ def medianRGB(image, kernel):
     return rank.median(image, kernel)
 
 def clustIndexShift(clustIm):
-    shiftRet = np.zeros(clustIm.shape)
+    shiftRet = np.uint8(np.zeros(clustIm.shape))
     for i in range(clustIm.shape[0]):
         for j in range(clustIm.shape[1]):
             shiftRet[i][j] = clustIm[i][j] + 1
@@ -44,7 +44,7 @@ def MyGMM(image, numClust, filterType=None): # Only support RGB now.
     print 'GMM predicting...'
     clustLabels = gmm.predict(data)
     print 'Inverse reshaping...'
-    clustIm = np.reshape(clustLabels, (height, width))
+    clustIm = np.uint8(np.reshape(clustLabels, (height, width)))
     clustImOneBased = clustIndexShift(clustIm)
     return clustImOneBased
 
