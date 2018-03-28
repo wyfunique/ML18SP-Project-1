@@ -5,6 +5,7 @@ from skimage import morphology
 from skimage.filters import rank, gaussian
 from skimage.color.adapt_rgb import adapt_rgb, each_channel, hsv_value
 from skimage.transform import rescale
+from skimage.transform import resize
 from sklearn.cluster import SpectralClustering
 
 kernel4Orig = morphology.square(width=25)
@@ -62,6 +63,7 @@ def MySpectral(image, numClust, scaleFactor=0.3, affinity='nearest_neighbors', n
     """    
     #if numClust > 30:
     #    scaleFactor = scaleFactor / 1.5
+    origShape = image.shape[:2]
     print 'Rescaling image to %f...'% (scaleFactor**2)
     image = np.uint8(rescale(image, scaleFactor, preserve_range=True))
     print 'New shape: %s'%str(image.shape)
@@ -79,6 +81,6 @@ def MySpectral(image, numClust, scaleFactor=0.3, affinity='nearest_neighbors', n
     print 'Inverse reshaping...'
     clustIm = np.reshape(clustLabels, (height, width))
     print 'Inverse rescaling to %f'% (1.0/(scaleFactor**2))
-    clustIm = np.uint8(rescale(clustIm, 1.0/scaleFactor, preserve_range=True))
+    clustIm = np.uint8(resize(clustIm, output_shape=origShape, preserve_range=True))
     clustImOneBased = clustIndexShift(clustIm)
     return clustImOneBased
