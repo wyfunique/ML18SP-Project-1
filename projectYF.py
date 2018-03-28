@@ -7,6 +7,7 @@ from skimage.color.adapt_rgb import adapt_rgb, each_channel, hsv_value
 from skimage.transform import rescale
 from skimage.transform import resize
 from sklearn.cluster import SpectralClustering
+from skimage.measure import label
 
 kernel4Orig = morphology.square(width=25)
 
@@ -28,8 +29,9 @@ def clustIndexShift(clustIm):
 def validateNumClust(numClust):
     assert numClust < 256, 'Error: The number of clusters must be less than 256'
     
-def MyGMM(image, numClust, filterType=None): # Only support RGB now.
+def MyGMM(image, numClust, connectNeighbors, filterType=None): # Only support RGB now.
     # filterType: 'mean', 'median', or None
+    # connectNeighbors: 4 or 8, means 4-connectivity or 8-connectivity
     validateNumClust(numClust)
     gmm = GMM(n_components=numClust, covariance_type='tied')
     
@@ -50,10 +52,12 @@ def MyGMM(image, numClust, filterType=None): # Only support RGB now.
     clustLabels = gmm.predict(data)
     print 'Inverse reshaping...'
     clustIm = np.uint8(np.reshape(clustLabels, (height, width)))
+    ccIm = np.uint8(label(clustIm, neighbors=connectNeighbors))
     clustImOneBased = clustIndexShift(clustIm)
-    return clustImOneBased
+    ccImOneBased = clustIndexShift(ccIm)
+    return clustImOneBased, ccImOneBased
 
-def MySpectral(image, numClust, scaleFactor=0.3, affinity='nearest_neighbors', n_neighbors=20, n_jobs=-1):
+def MySpectral(image, numClust, connectNeighbors, scaleFactor=0.3, affinity='nearest_neighbors', n_neighbors=20, n_jobs=-1):
     validateNumClust(numClust)
     """
     if filterType == 'mean':
@@ -82,5 +86,7 @@ def MySpectral(image, numClust, scaleFactor=0.3, affinity='nearest_neighbors', n
     clustIm = np.reshape(clustLabels, (height, width))
     print 'Inverse rescaling to %f'% (1.0/(scaleFactor**2))
     clustIm = np.uint8(resize(clustIm, output_shape=origShape, preserve_range=True))
+    ccIm = np.uint8(label(clustIm, neighbors=connectNeighbors))
     clustImOneBased = clustIndexShift(clustIm)
-    return clustImOneBased
+    ccImOneBased = clustIndexShift(ccIm)
+    return clustImOneBased, ccImOneBased
