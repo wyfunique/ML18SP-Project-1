@@ -41,13 +41,15 @@ def getMatInterAndUnion(mat1, mat2):
 def calculateWeight(nrow, ncol, interMat, mat2):
     weightMat = np.zeros(shape=(nrow, ncol))
     for i in range(0, nrow):
+        lower = 0
+        for m in range(0, ncol):
+            lower += (1-delta(interMat[i][m]))*numContainInMat(mat2, m+1)
         for j in range(0, ncol):
             upper = (1-delta(interMat[i][j]))*numContainInMat(mat2, j+1)
-            lower = 0
-            for m in range(0, ncol):
-                lower += (1-delta(interMat[i][m]))*numContainInMat(mat2, m+1)
-
-            weightMat[i][j] = upper*1.0/lower
+            if lower == 0:
+                weightMat[i][j] = 0
+            else:
+                weightMat[i][j] = upper*1.0/lower
 
     return weightMat
 
