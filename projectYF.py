@@ -16,6 +16,13 @@ def meanRGB(image, kernel):
 @adapt_rgb(each_channel)    
 def medianRGB(image, kernel):
     return rank.median(image, kernel)
+
+def clustIndexShift(clustIm):
+    shiftRet = np.zeros(clustIm.shape)
+    for i in range(clustIm.shape[0]):
+        for j in range(clustIm.shape[1]):
+            shiftRet[i][j] = clustIm[i][j] + 1
+    return shiftRet
     
 def MyGMM(image, numClust, filterType=None): # Only support RGB now.
     # filterType: 'mean', 'median', or None
@@ -38,7 +45,8 @@ def MyGMM(image, numClust, filterType=None): # Only support RGB now.
     clustLabels = gmm.predict(data)
     print 'Inverse reshaping...'
     clustIm = np.reshape(clustLabels, (height, width))
-    return clustIm
+    clustImOneBased = clustIndexShift(clustIm)
+    return clustImOneBased
 
 def MySpectral(image, numClust, scaleFactor=0.3, affinity='nearest_neighbors', n_neighbors=20, n_jobs=-1):
     """
@@ -67,5 +75,5 @@ def MySpectral(image, numClust, scaleFactor=0.3, affinity='nearest_neighbors', n
     clustIm = np.reshape(clustLabels, (height, width))
     print 'Inverse rescaling to %f'% (1.0/(scaleFactor**2))
     clustIm = np.uint8(rescale(clustIm, 1.0/scaleFactor, preserve_range=True))
-    
-    return clustIm
+    clustImOneBased = clustIndexShift(clustIm)
+    return clustImOneBased
