@@ -23,9 +23,13 @@ def clustIndexShift(clustIm):
         for j in range(clustIm.shape[1]):
             shiftRet[i][j] = clustIm[i][j] + 1
     return shiftRet
+
+def validateNumClust(numClust):
+    assert numClust < 256, 'Error: The number of clusters must be less than 256'
     
 def MyGMM(image, numClust, filterType=None): # Only support RGB now.
     # filterType: 'mean', 'median', or None
+    validateNumClust(numClust)
     gmm = GMM(n_components=numClust, covariance_type='tied')
     
     if filterType == 'mean':
@@ -49,6 +53,7 @@ def MyGMM(image, numClust, filterType=None): # Only support RGB now.
     return clustImOneBased
 
 def MySpectral(image, numClust, scaleFactor=0.3, affinity='nearest_neighbors', n_neighbors=20, n_jobs=-1):
+    validateNumClust(numClust)
     """
     if filterType == 'mean':
         pass
