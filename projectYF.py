@@ -8,6 +8,7 @@ from skimage.transform import rescale
 from skimage.transform import resize
 from sklearn.cluster import SpectralClustering
 from skimage.measure import label
+from sklearn.decomposition import PCA
 
 kernel4Orig = morphology.square(width=25)
 
@@ -29,21 +30,31 @@ def clustIndexShift(clustIm):
 def validateNumClust(numClust):
     assert numClust < 256, 'Error: The number of clusters must be less than 256'
     
-def MyGMM(image, numClust, connectNeighbors, filterType=None): # Only support RGB now.
+def MyGMM(image, numClust, connectNeighbors, imageType='RGB', filterType=None): # Only support RGB now.
     # filterType: 'mean', 'median', or None
     # connectNeighbors: 4 or 8, means 4-connectivity or 8-connectivity
+    # imageType: 'RGB' or 'Hyper'
+    
     validateNumClust(numClust)
+    
     gmm = GMM(n_components=numClust, covariance_type='tied')
+    
+    height = image.shape[0]
+    width = image.shape[1]
+    n_features = image.shape[2]
+    n_samples = height * width
+    
+    if imageType == 'Hyper':
+        pca = PCA(3)
+        dataTmp = np.reshape(image, (n_samples, n_features))
+        dataPCA = pca.fit_transform(dataTmp)
+        image = np.uint8(np.reshape(dataPCA, (height, width, 3)))
     
     if filterType == 'mean':
         image = np.uint8(meanRGB(image, kernel4Orig))
     if filterType == 'median':
         image = np.uint8(medianRGB(image, kernel4Orig))
     
-    height = image.shape[0]
-    width = image.shape[1]
-    n_features = image.shape[2]
-    n_samples = height * width
     print 'Reshaping image...'
     data = np.reshape(image, (n_samples, n_features))
     print 'Fitting GMM...'
@@ -57,7 +68,8 @@ def MyGMM(image, numClust, connectNeighbors, filterType=None): # Only support RG
     ccImOneBased = clustIndexShift(ccIm)
     return clustImOneBased, ccImOneBased
 
-def MySpectral(image, numClust, connectNeighbors, scaleFactor=0.3, affinity='nearest_neighbors', n_neighbors=20, n_jobs=-1):
+def MySpectral(image, numClust, connectNeighbors, imageType='RGB', scaleFactor=0.3, affinity='nearest_neighbors', n_neighbors=20, n_jobs=-1):
+    # imageType: 'RGB' or 'Hyper'
     validateNumClust(numClust)
     """
     if filterType == 'mean':
@@ -67,15 +79,22 @@ def MySpectral(image, numClust, connectNeighbors, scaleFactor=0.3, affinity='nea
     """    
     #if numClust > 30:
     #    scaleFactor = scaleFactor / 1.5
+    height = image.shape[0]
+    width = image.shape[1]
+    n_features = image.shape[2]
+    n_samples = height * width
+    
+    if imageType == 'Hyper':
+        pca = PCA(3)
+        dataTmp = np.reshape(image, (n_samples, n_features))
+        dataPCA = pca.fit_transform(dataTmp)
+        image = np.uint8(np.reshape(dataPCA, (height, width, 3)))
+    
     origShape = image.shape[:2]
     print 'Rescaling image to %f...'% (scaleFactor**2)
     image = np.uint8(rescale(image, scaleFactor, preserve_range=True))
     print 'New shape: %s'%str(image.shape)
     
-    height = image.shape[0]
-    width = image.shape[1]
-    n_features = image.shape[2]
-    n_samples = height * width
     print 'Reshaping image...'
     data = np.reshape(image, (n_samples, n_features))
     #graph = kneighbors_graph(X=data, n_neighbors=n_neighbors, mode='distance')
