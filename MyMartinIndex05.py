@@ -88,7 +88,7 @@ def martinIndex(mat1, mat2):
     #print score
     return score
 
-def calOCE(mat1, mat2):
+def MyMartinIndex05(mat1, mat2):
     score1 = martinIndex(mat1, mat2)
     score2 = martinIndex(mat2, mat1)
     if score1> score2:
