@@ -6,7 +6,7 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import sklearn.cluster
 from sklearn.decomposition import PCA
-
+import getCCIM
 def MySOM05(img1,ImageType,numClust):
 
     #normalizing image data
@@ -45,11 +45,12 @@ def MySOM05(img1,ImageType,numClust):
     kmeans3 = sklearn.cluster.KMeans(n_clusters=numClust, init=new_centroids,n_init=1, max_iter=300).fit(img_vector)
 
     ClusterIm = np.reshape(kmeans3.labels_,(img_height,img_width))
-
-    plt.imshow(ClusterIm)
-    plt.savefig("som.png")
-    plt.pause(5)
-    return ClusterIm
+    ccImOneBase = getCCIM.getCCIM(ClusterIm, 4)
+    return ClusterIm, ccImOneBase
+#     plt.imshow(ClusterIm)
+#     plt.savefig("som.png")
+#     plt.pause(5)
+#     return ClusterIm
 
 
 # mat = scipy.loadmat('PaviaRGB.mat')
