@@ -13,23 +13,37 @@ from MyFCM05 import MyFCM05
 from MySOM05 import MySOM05
 
 def MyClust05(Im, algStr, alg, imStr, imType, clusStr, numClusts):
-    if algStr != "Algorithm":
+    if algStr.lower() != "algorithm":
         print "Second parameter should be Algorithm"
-    if imStr != "ImType":
+    if imStr.lower() != "imtype":
         print "Third parameter should be ImType"
-    if clusStr != "NumClusts":
+    if clusStr.lower() != "numclusts":
         print "Fifth parameter should be NumClusts"
 
-    if alg.lower() == "kmeans" and imType.lower() == "rgb":
-        [ClusterIm, CCIm] = MyKmeans05(Im, imType, numClusts)
-    if alg.lower() == "som" and imType.lower() == "rgb": 
-        [ClusterIm, CCIm] = MySOM05(Im, imType, numClusts)   
-    if alg.lower() == "fcm" and imType.lower() == "rgb":
-        [ClusterIm, CCIm] = MyFCM05(Im, imType, numClusts)
-    if alg.lower() == "spectral" and imType.lower() == "rgb":
-        [ClusterIm, CCIm] = MySpectral05(Im, numClusts, 4)
-    if alg.lower() == "gmm" and imType.lower() == "rgb":
-        [ClusterIm, CCIm] = MyGMM05(Im, numClusts, 4)
+    if imType.lower() == "rgb":
+        if alg.lower() == "kmeans":
+            [ClusterIm, CCIm] = MyKmeans05(Im, imType, numClusts)
+        if alg.lower() == "som": 
+            [ClusterIm, CCIm] = MySOM05(Im, imType, numClusts)   
+        if alg.lower() == "fcm":
+            [ClusterIm, CCIm] = MyFCM05(Im, imType, numClusts)
+        if alg.lower() == "spectral":
+            [ClusterIm, CCIm] = MySpectral05(Im, imType, numClusts)
+        if alg.lower() == "gmm":
+            [ClusterIm, CCIm] = MyGMM05(Im, imType, numClusts)
+        return [ClusterIm, CCIm]
 
-    ## TODO: not implement hyper image yet
-    return [ClusterIm, CCIm]
+    if imType.lower() == "hyper":
+        if alg.lower() == "kmeans":
+            [ClusterIm, CCIm] = MyKmeans05(Im, imType, numClusts)
+        if alg.lower() == "som": 
+            [ClusterIm, CCIm] = MySOM05(Im, imType, numClusts)   
+        if alg.lower() == "fcm":
+            [ClusterIm, CCIm] = MyFCM05(Im, imType, numClusts)
+        if alg.lower() == "spectral":
+            [ClusterIm, CCIm] = MySpectral05(Im, imType, numClusts)
+        if alg.lower() == "gmm":
+            [ClusterIm, CCIm] = MyGMM05(Im, imType, numClusts)
+        return ClusterIm
+    
+    
