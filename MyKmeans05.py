@@ -4,7 +4,7 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import sklearn.cluster
 from sklearn.decomposition import PCA
-
+import getCCIM
 def MyKmeans05(img1,ImageType,numClust):
 
     #normalizing image data
@@ -28,10 +28,12 @@ def MyKmeans05(img1,ImageType,numClust):
 
     kmeans= sklearn.cluster.KMeans(n_clusters=numClust,init="k-means++",max_iter=300).fit(img_vector)
     ClusterIm = np.reshape(kmeans.labels_,(img_height,img_width))
-    plt.imshow(ClusterIm)
-    plt.savefig("kmeans.png")
-    plt.pause(5)
-    return ClusterIm
+    ccImOneBase = getCCIM.getCCIM(ClusterIm, 4)
+    return ClusterIm, ccImOneBase
+#     plt.imshow(ClusterIm)
+#     plt.savefig("kmeans.png")
+#     plt.pause(5)
+#     return ClusterIm
 #
 # mat = scipy.loadmat('PaviaRGB.mat')
 # img1 = mat["PaviaRGB"]
