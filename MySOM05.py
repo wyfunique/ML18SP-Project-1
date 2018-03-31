@@ -6,7 +6,8 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import sklearn.cluster
 from sklearn.decomposition import PCA
-def MySOM5(img1,ImageType,numClust):
+
+def MySOM05(img1,ImageType,numClust):
 
     #normalizing image data
     img2 = img1.astype(float)
