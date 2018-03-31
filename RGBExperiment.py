@@ -7,8 +7,12 @@ import DisplayImAngSegs as Display
 from MyMartinIndex05 import MyMartinIndex05
 import MyClust05 as Clust
 from MyClustEvalRGB05 import MyClustEvalRGB05
+import logging
+
+logging.basicConfig(filename="RGBScore.txt", level=logging.DEBUG)
 
 
+logging.info("evaluating RGB images using kmeans")
 print "evaluating RGB images using kmeans"
 mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\ImsAngSegs_part"
 onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
@@ -27,12 +31,14 @@ for onefile in onlyfiles:
         [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "Kmeans", "ImType", "RGB", "NumClusts", numClust)
         score = min(MyClustEvalRGB05(CCIm, gt1), MyClustEvalRGB05(CCIm, gt2), MyClustEvalRGB05(CCIm, gt3))
         minScore = min(score, minScore)
-        print onefile, " score ", score, "clust: ", numClust
+        logging.info(onefile+" score: "+ str(score)+" clust: "+str(numClust))
+        print onefile, " score: ", score, " clust: ", str(numClust)
     scoreList.append(minScore)
     
 print scoreList 
 arr = np.array(scoreList)
-print "mean ", np.mean(arr), "std dev ", np.std(arr)
+print "mean: ", np.mean(arr), "std dev: ", np.std(arr)
+logging.info("mean: "+ str(np.mean(arr))+ "std dev: "+ str(np.std(arr)))
 
 
 # fileName = "ImsAndTruths2092.mat"
