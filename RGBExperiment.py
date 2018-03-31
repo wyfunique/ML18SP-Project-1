@@ -1,14 +1,10 @@
 import scipy.io as sio
 import matplotlib.pyplot as plt
 import numpy as np
-from DisplayImAngSegs import DisplayImAndSegs
 from os import listdir
 from os.path import isfile, join
 import DisplayImAngSegs as Display
-import kmeans
-import projectYF as yf
 from MyMartinIndex05 import MyMartinIndex05
-import fcm
 import MyClust05 as Clust
 from MyClustEvalRGB05 import MyClustEvalRGB05
 
@@ -28,7 +24,7 @@ for onefile in onlyfiles:
     gt3 = imsAndSeg.get("Seg3")
     minScore = 2.0
     for numClust in range(2, 4):
-        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "kmeans", "ImType", "RGB", "NumClusts", numClust)
+        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "Kmeans", "ImType", "RGB", "NumClusts", numClust)
         score = min(MyClustEvalRGB05(CCIm, gt1), MyClustEvalRGB05(CCIm, gt2), MyClustEvalRGB05(CCIm, gt3))
         minScore = min(score, minScore)
         print onefile, " score ", score, "clust: ", numClust
