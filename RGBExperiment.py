@@ -10,19 +10,35 @@ import projectYF as yf
 from MyMartinIndex05 import MyMartinIndex05
 import fcm
 import MyClust05 as Clust
-
-def MyClustEvalRGB05(CCIm, gt):
-    ''' 
-      This function is used to evaluate the result got
-      by the cluster function kmeans, som, fcm, spectral cluster,
-      CMM
-      CCIm: for connected component
-      gt: ground truth
-    '''
-    return MyMartinIndex05(CCIm, gt)
+from MyClustEvalRGB05 import MyClustEvalRGB05
 
 
-#MyClustEvalRGB05()
+print "evaluating RGB images using kmeans"
+mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\ImsAngSegs_part"
+onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
+scoreList = []
+for onefile in onlyfiles:
+    fileName = mypath+ '/' + onefile
+    #fileName = "ImsAndTruths12003.mat"
+    print "processing "+ fileName
+    imsAndSeg = sio.loadmat(fileName)
+    im = imsAndSeg.get("Im")
+    gt1 = imsAndSeg.get("Seg1")
+    gt2 = imsAndSeg.get("Seg2")
+    gt3 = imsAndSeg.get("Seg3")
+    minScore = 2.0
+    for numClust in range(2, 4):
+        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "kmeans", "ImType", "RGB", "NumClusts", numClust)
+        score = min(MyClustEvalRGB05(CCIm, gt1), MyClustEvalRGB05(CCIm, gt2), MyClustEvalRGB05(CCIm, gt3))
+        minScore = min(score, minScore)
+        print onefile, " score ", score, "clust: ", numClust
+    scoreList.append(minScore)
+    
+print scoreList 
+arr = np.array(scoreList)
+print "mean ", np.mean(arr), "std dev ", np.std(arr)
+
+
 # fileName = "ImsAndTruths2092.mat"
 # imsAndSeg = sio.loadmat(fileName)
 # print type(imsAndSeg.get('Seg1'))
