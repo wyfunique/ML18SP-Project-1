@@ -30,7 +30,7 @@ def clustIndexShift(clustIm):
 def validateNumClust(numClust):
     assert numClust < 256, 'Error: The number of clusters must be less than 256'
     
-def MyGMM05(image, numClust, connectNeighbors=4, imageType='RGB', filterType=None): 
+def MyGMM05(image, imageType, numClust, connectNeighbors=4, filterType=None): 
     # filterType: 'mean', 'median', or None
     # connectNeighbors: 4 or 8, means 4-connectivity or 8-connectivity
     # imageType: 'RGB' or 'Hyper'
@@ -71,7 +71,7 @@ def MyGMM05(image, numClust, connectNeighbors=4, imageType='RGB', filterType=Non
     ccImOneBased = clustIndexShift(ccIm)
     return clustImOneBased, ccImOneBased
 
-def MySpectral05(image, numClust, connectNeighbors=4, imageType='RGB', scaleFactor=0.3, affinity='nearest_neighbors', n_neighbors=20, n_jobs=-1):
+def MySpectral05(image, imageType, numClust, connectNeighbors=4, scaleFactor=0.3, affinity='nearest_neighbors', n_neighbors=20, n_jobs=-1):
     # imageType: 'RGB' or 'Hyper'
     validateNumClust(numClust)
     """
