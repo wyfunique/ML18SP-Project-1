@@ -4,6 +4,7 @@ import scipy.io as scipy
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import skfuzzy as fuzz
+import getCCIM
 
 def MyFCM(img,ImageType,numClust):
     k=numClust
@@ -32,7 +33,9 @@ def MyFCM(img,ImageType,numClust):
                 max_val=uT[i][j]
                 max_cluster=j+1
         ClusterIm[row][col] = max_cluster
-    return ClusterIm
+
+    ccImOneBase = getCCIM.getCCIM(ClusterIm, 4)
+    return ClusterIm, ccImOneBase
 
     # ClusterIm = np.zeros([img.shape[0], img.shape[1], 3], dtype=np.float32)
     # uT = u.T

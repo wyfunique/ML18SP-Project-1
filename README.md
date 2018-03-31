@@ -27,3 +27,6 @@ Call Evaluation Instruction
     
     socre = sum over i ((1-Pi)\*|Ai|/|A|)   where |A| means the number of pixels in A.
    
+Problems need to fix
+1. file name
+2. myGMM and mySpectral parameter not the same as required
