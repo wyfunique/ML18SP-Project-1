@@ -19,10 +19,10 @@ def MyClustEvalRGB05():
     '''
     print "evaluating RGB images using kmeans"
     mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\ImsAngSegs_part"
-    onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
     scoreList = []
     for onefile in onlyfiles:
-      fileName = mypath+ "\/" + onefile
+      fileName = mypath+ '/' + onefile
       #fileName = "ImsAndTruths12003.mat"
       print "processing "+ fileName
       imsAndSeg = sio.loadmat(fileName)
