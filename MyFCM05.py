@@ -5,6 +5,7 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import skfuzzy as fuzz
 from sklearn.decomposition import PCA
+import getCCIM
 
 def MyFCM05(img1,ImageType,numClust):
     #normalizing image data
@@ -37,8 +38,10 @@ def MyFCM05(img1,ImageType,numClust):
                 max_cluster=j+1
         output[i] = max_cluster
     ClusterIm = np.reshape(output, (img_height, img_width))
-    imgplot = plt.imshow(img)
-    plt.pause(2)
-    plt.imshow(ClusterIm)
-    plt.pause(5)
-    return ClusterIm
+#     imgplot = plt.imshow(img)
+#     plt.pause(2)
+#     plt.imshow(ClusterIm)
+#     plt.pause(5)
+
+    ccImOneBase = getCCIM.getCCIM(ClusterIm, 4)
+    return ClusterIm, ccImOneBase
