@@ -11,8 +11,8 @@ import logging
 
 logging.basicConfig(filename="hyperScore.txt", level=logging.DEBUG)
 
-logging.info("evaluating Hyper spectral images using kmeans")
-print "evaluating Hyper spectral images using kmeans"
+logging.info("evaluating Hyper spectral images using som")
+print "evaluating Hyper spectral images using som"
 mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1"
 onefile = "PaviaHyperIm.mat"
 fileName = mypath+ '/' + onefile
@@ -24,12 +24,12 @@ gt1 = gtMat.get("PaviaGrTruth")
 minScore = 2.0
 scoreList = []
 for numClust in range(2, 5):
-    ClusterIm = Clust.MyClust05(im, "Algorithm", "Kmeans", "ImType", "Hyper", "NumClusts", numClust)
+    ClusterIm = Clust.MyClust05(im, "Algorithm", "som", "ImType", "Hyper", "NumClusts", numClust)
     score = MyClustEvalHyper05(ClusterIm, gt1)
     minScore = min(score, minScore)
     logging.info(onefile+" score: "+str(score)+" clust: "+str(numClust))
     print onefile, " score: ", score, " clust: ", str(numClust)
-scoreList.append(minScore)
+    scoreList.append(score)
     
 print scoreList 
 arr = np.array(scoreList)
