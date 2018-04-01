@@ -30,3 +30,12 @@ Call Evaluation Instruction
 Problems need to fix
 1. file name
 2. myGMM and mySpectral parameter not the same as required
+
+Run RGB experiment guideline:
+1. Change "mypath" in RGBExperiment.py to the absolute path where folder "ImsAndSegs" reside in;
+2. There are three places need to change, 
+    1. logging.info("evaluating RGB images using fcm")
+    2. print "evaluating RGB images using fcm"
+    3. Most important, [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "fcm", "ImType", "RGB", "NumClusts", numClust)
+   Change "fcm" to the algorithm you are running
+3. This experiment script will output a file named "RGBScore.txt", storing each image's score for each cluster number chosen. However, it cannot be deleted by the program. So make sure to delete it by habd before you rerun the experiment.

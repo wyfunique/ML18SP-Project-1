@@ -12,11 +12,12 @@ import logging
 logging.basicConfig(filename="RGBScore.txt", level=logging.DEBUG)
 
 
-logging.info("evaluating RGB images using kmeans")
-print "evaluating RGB images using kmeans"
-mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\ImsAngSegs_part"
+logging.info("evaluating RGB images using gmm")
+print "evaluating RGB images using gmm"
+mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\ImsAndSegs"
 onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
 scoreList = []
+read_dictionary = np.load('numClusters.npy').item()
 for onefile in onlyfiles:
     fileName = mypath+ '/' + onefile
     #fileName = "ImsAndTruths12003.mat"
@@ -27,8 +28,11 @@ for onefile in onlyfiles:
     gt2 = imsAndSeg.get("Seg2")
     gt3 = imsAndSeg.get("Seg3")
     minScore = 2.0
-    for numClust in range(2, 4):
-        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "Kmeans", "ImType", "RGB", "NumClusts", numClust)
+    numC = read_dictionary[onefile]
+    print onefile, " max cluster: ", numC
+    logging.info(onefile+ " max cluster: "+ str(numC))
+    for numClust in range(2, numC+1):
+        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "gmm", "ImType", "RGB", "NumClusts", numClust)
         score = min(MyClustEvalRGB05(CCIm, gt1), MyClustEvalRGB05(CCIm, gt2), MyClustEvalRGB05(CCIm, gt3))
         minScore = min(score, minScore)
         logging.info(onefile+" score: "+ str(score)+" clust: "+str(numClust))
