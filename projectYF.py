@@ -82,16 +82,18 @@ def MySpectral05(image, imageType, numClust, connectNeighbors=4, scaleFactor=0.3
     """    
     #if numClust > 30:
     #    scaleFactor = scaleFactor / 1.5
-    height = image.shape[0]
-    width = image.shape[1]
-    n_features = image.shape[2]
-    n_samples = height * width
+    
     origShape = image.shape[:2]
-        
+    
     if imageType == 'Hyper':# Normalized image ranging [0, 1]
         print 'Rescaling image to %f...'% (scaleFactor**2)
         image = rescale(image, scaleFactor, preserve_range=True)
         print 'New shape: %s'%str(image.shape)
+        height = image.shape[0]
+        width = image.shape[1]
+        n_features = image.shape[2]
+        n_samples = height * width
+        
         pca = PCA(3)
         dataTmp = np.reshape(image, (n_samples, n_features))
         data = pca.fit_transform(dataTmp)
@@ -101,6 +103,10 @@ def MySpectral05(image, imageType, numClust, connectNeighbors=4, scaleFactor=0.3
         print 'Rescaling image to %f...'% (scaleFactor**2)
         image = np.uint8(rescale(image, scaleFactor, preserve_range=True))
         print 'New shape: %s'%str(image.shape)
+        height = image.shape[0]
+        width = image.shape[1]
+        n_features = image.shape[2]
+        n_samples = height * width
         print 'Reshaping image...'
         data = np.reshape(image, (n_samples, n_features))
         #graph = kneighbors_graph(X=data, n_neighbors=n_neighbors, mode='distance')

@@ -26,7 +26,7 @@ def delta(num):
 def getMatInterAndUnion(mat1, mat2):
     ncluster1 = mat1.max()
     ncluster2 = mat2.max()
-
+    
     mat1Inter2 = np.zeros(shape=(ncluster1, ncluster2))
     mat1Union2 = np.zeros(shape=(ncluster1, ncluster2))
     for i in range(0, ncluster1):
@@ -35,9 +35,10 @@ def getMatInterAndUnion(mat1, mat2):
             [nInter, nUnion] = matInterAndUnionNum(mat1, i+1, mat2, j+1)
             mat1Inter2[i][j] = nInter
             mat1Union2[i][j] = nUnion
-
+    
     return [mat1Inter2, mat1Union2]  
-
+    
+   
 def calculateWeight(nrow, ncol, interMat, mat2):
     weightMat = np.zeros(shape=(nrow, ncol))
     for i in range(0, nrow):
