@@ -3,14 +3,19 @@ import numpy as np
 import scipy.io as scipy
 import glob
 import os
+from os import listdir
+from os.path import isfile, join
 
-
-filenames = glob.glob("ImsAndSegs/*")
-files = os.listdir("ImsAndSegs")
+#filenames = glob.glob("ImsAndSegs/*")
+#files = os.listdir("ImsAndSegs")
+mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\ImsAngSegs_part"
+files = [f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
+filenames = [join(mypath,f) for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
+#filenames = glob.glob("ImsAngSegs_part/*.mat")
 arrayOfFiles = np.asarray(filenames)
 array2 = np.asarray(files)
 dict = {}
-print arrayOfFiles.shape
+print arrayOfFiles.shape, array2.shape
 for j in xrange(0,arrayOfFiles.shape[0]):
 # for i in xrange(0,5):
     #seg1--------------------------------------------
@@ -60,14 +65,16 @@ for j in xrange(0,arrayOfFiles.shape[0]):
         if(counter3[i]>threshold):
             maxClust3+=1
     print j
-    dict[array2[j]]=max(maxClust1,maxClust2,maxClust3)
-    print array2[j]
-    print dict[array2[j]]
+    #dict[array2[j]]=max(maxClust1,maxClust2,maxClust3)
+    dict[array2[j]]=[maxClust1,maxClust2,maxClust3]
+    print array2[j], dict[array2[j]]#, type(dict[array2[j]])
+    #list1 = dict[array2[j]]
+    #print list1[0], list1[1], list1[2]
 
 
 
-np.save('numClusters.npy',dict)
+np.save('numClusters_part.npy',dict)
 print len(dict)
-dict["filname.mat"]
+dict["ImsAndTruths12003.mat"]
 
 

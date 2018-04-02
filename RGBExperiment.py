@@ -12,8 +12,8 @@ import logging
 logging.basicConfig(filename="RGBScore.txt", level=logging.DEBUG)
 
 
-logging.info("evaluating RGB images using gmm")
-print "evaluating RGB images using gmm"
+logging.info("evaluating RGB images using spectral")
+print "evaluating RGB images using spectral"
 mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\ImsAndSegs"
 onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
 scoreList = []
@@ -29,10 +29,10 @@ for onefile in onlyfiles:
     gt3 = imsAndSeg.get("Seg3")
     minScore = 2.0
     numC = read_dictionary[onefile]
-    print onefile, " max cluster: ", numC
-    logging.info(onefile+ " max cluster: "+ str(numC))
-    for numClust in range(2, numC+1):
-        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "gmm", "ImType", "RGB", "NumClusts", numClust)
+    print onefile, " clusters: ", numC
+    logging.info(onefile+ " clusters: "+ str(numC))
+    for numClust in numC:
+        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "spectral", "ImType", "RGB", "NumClusts", numClust)
         score = min(MyClustEvalRGB05(CCIm, gt1), MyClustEvalRGB05(CCIm, gt2), MyClustEvalRGB05(CCIm, gt3))
         minScore = min(score, minScore)
         logging.info(onefile+" score: "+ str(score)+" clust: "+str(numClust))
