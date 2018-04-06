@@ -17,7 +17,7 @@ print "evaluating RGB images using som"
 mypath = "C:\S\ML\Gader_Project_1\Project_1\ImsAndSegs"
 onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
 scoreList = []
-read_dictionary = np.load('numClusters.npy').item()
+read_dictionary = np.load('best3Clusters.npy').item()
 for onefile in onlyfiles:
     fileName = mypath+ '/' + onefile
     #fileName = "ImsAndTruths12003.mat"
