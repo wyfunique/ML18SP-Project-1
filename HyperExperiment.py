@@ -9,11 +9,11 @@ import MyClust05 as Clust
 from MyClustEvalHyper05 import MyClustEvalHyper05
 import logging
 
-logging.basicConfig(filename="hyperScore.txt", level=logging.DEBUG)
+logging.basicConfig(filename="hyperScoreFCM.txt", level=logging.DEBUG)
 
 logging.info("evaluating Hyper spectral images using som")
 print "evaluating Hyper spectral images using som"
-mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1"
+mypath = "C:\S\ML\Gader_Project_1\Project_1"
 onefile = "PaviaHyperIm.mat"
 fileName = mypath+ '/' + onefile
 imsAndSeg = sio.loadmat(fileName)
@@ -23,8 +23,8 @@ gtMat = sio.loadmat(truthfile)
 gt1 = gtMat.get("PaviaGrTruth")
 minScore = 2.0
 scoreList = []
-for numClust in range(2, 5):
-    ClusterIm = Clust.MyClust05(im, "Algorithm", "som", "ImType", "Hyper", "NumClusts", numClust)
+for numClust in range(2, 10):
+    ClusterIm = Clust.MyClust05(im, "Algorithm", "fcm", "ImType", "Hyper", "NumClusts", numClust)
     score = MyClustEvalHyper05(ClusterIm, gt1)
     minScore = min(score, minScore)
     logging.info(onefile+" score: "+str(score)+" clust: "+str(numClust))

@@ -29,17 +29,21 @@ def MyKmeans05(img1,ImageType,numClust):
     kmeans= sklearn.cluster.KMeans(n_clusters=numClust,init="k-means++",max_iter=300).fit(img_vector)
     ClusterIm = np.reshape(kmeans.labels_,(img_height,img_width))
     ccImOneBase = getCCIM.getCCIM(ClusterIm, 4)
+    plt.imshow(ClusterIm)
+    plt.savefig("kmeans.png")
+    plt.pause(5)
+    return ClusterIm
     return ClusterIm, ccImOneBase
 #     plt.imshow(ClusterIm)
 #     plt.savefig("kmeans.png")
 #     plt.pause(5)
 #     return ClusterIm
 #
-# mat = scipy.loadmat('PaviaRGB.mat')
-# img1 = mat["PaviaRGB"]
-# print np.amin(img1)
-# print np.amax(img1)
-# MyKmeans05(img1,'RGB',4)
+mat = scipy.loadmat('ImsAndSegs/ImsAndTruths12074.mat')
+img1 = mat["Im"]
+print np.amin(img1)
+print np.amax(img1)
+MyKmeans05(img1,'RGB',4)
 
 # mat = scipy.loadmat('PaviaHyperIm.mat')
 # img = mat["PaviaHyperIm"]

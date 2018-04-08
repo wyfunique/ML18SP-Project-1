@@ -1,4 +1,4 @@
-INFO:root:evaluating RGB images using FCM
+0.99INFO:root:evaluating RGB images using FCM
 INFO:root:ImsAndTruths187039.mat clusters: [4, 4, 4]
 INFO:root:ImsAndTruths187039.mat score: 0.96435748967653 clust: 4
 INFO:root:ImsAndTruths187039.mat score: 0.9642140140858511 clust: 4

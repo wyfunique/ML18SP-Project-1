@@ -12,7 +12,7 @@ def MyClustEvalHyper05(ClusterIm, gt):
     score = 1.0
     # print ClusterIm.shape
     # if True:
-    maskMat = sio.loadmat("../PaviaGrTruthMask.mat")
+    maskMat = sio.loadmat("C:\S\ML\Gader_Project_1\Project_1\PaviaGrTruthMask.mat")
     mask = maskMat.get("PaviaGrTruthMask")
     ClusterIm_2 = ClusterIm * mask
     #print "truth: ", truth.max()

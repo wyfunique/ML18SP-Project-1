@@ -38,6 +38,7 @@ def MyFCM05(img1,ImageType,numClust):
                 max_cluster=j+1
         output[i] = max_cluster
     ClusterIm = np.reshape(output, (img_height, img_width))
+    ClusterIm = ClusterIm.astype(int)
 #     imgplot = plt.imshow(img)
 #     plt.pause(2)
 #     plt.imshow(ClusterIm)

@@ -32,7 +32,7 @@ for onefile in onlyfiles:
     print onefile, " clusters: ", numC
     logging.info(onefile+ " clusters: "+ str(numC))
     for numClust in numC:
-        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "som", "ImType", "RGB", "NumClusts", numClust)
+        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "som", "ImType", "rgb", "NumClusts", numClust)
         score = min(MyClustEvalRGB05(CCIm, gt1), MyClustEvalRGB05(CCIm, gt2), MyClustEvalRGB05(CCIm, gt3))
         minScore = min(score, minScore)
         logging.info(onefile+" score: "+ str(score)+" clust: "+str(numClust))
