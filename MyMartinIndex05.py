@@ -1,5 +1,5 @@
 import scipy.io as sio
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 
 def matInterAndUnionNum(mat1, i, mat2, j): 
