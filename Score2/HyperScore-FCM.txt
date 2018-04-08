@@ -1,0 +1,3 @@
+INFO:root:evaluating Hyper images using FCM
+INFO:root:PaviaHyperIm.mat score: 0.8707775743917375 clust: 9
+INFO:root:mean: 0.8707775743917375std dev: 0.0
