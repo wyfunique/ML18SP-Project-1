@@ -19,7 +19,14 @@ def MyClust05(Im, algStr, alg, imStr, imType, clusStr, numClusts):
         print "Third parameter should be ImType"
     if clusStr.lower() != "numclusts":
         print "Fifth parameter should be NumClusts"
-
+    nrow = Im.shape[0]
+    ncol = Im.shape[1]
+    #print Im.shape, nrow, ncol
+    if numClusts < 1:
+        numClusts = int(round(0.05*nrow*ncol))
+    if numClusts > 0.25*nrow*ncol:
+        numClusts = int(round(0.25*nrow*ncol))
+    print "The number of clusts is: ", numClusts
     if imType.lower() == "rgb":
         if alg.lower() == "kmeans":
             [ClusterIm, CCIm] = MyKmeans05(Im, imType, numClusts)
