@@ -14,8 +14,9 @@ def MyClustEvalHyper05(ClusterIm, gt):
     # if True:
     maskMat = sio.loadmat("../PaviaGrTruthMask.mat")
     mask = maskMat.get("PaviaGrTruthMask")
-    truth = gt * mask
-    score = MyMartinIndex05(ClusterIm, truth)
+    ClusterIm_2 = ClusterIm * mask
+    #print "truth: ", truth.max()
+    score = MyMartinIndex05(ClusterIm_2, gt)
     # else:
     #     print "This evaluation is only for Pavia hyper image"
     return score
