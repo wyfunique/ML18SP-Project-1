@@ -1,9 +1,6 @@
 import scipy.io as sio
-import matplotlib.pyplot as plt
 import numpy as np
 from DisplayImAngSegs import DisplayImAndSegs
-from os import listdir
-from os.path import isfile, join
 import DisplayImAngSegs as Display
 from MyKmeans05 import MyKmeans05
 from projectYF import MyGMM05
@@ -26,7 +23,7 @@ def MyClust05(Im, algStr, alg, imStr, imType, clusStr, numClusts):
         numClusts = int(round(0.05*nrow*ncol))
     if numClusts > 0.25*nrow*ncol:
         numClusts = int(round(0.25*nrow*ncol))
-    print "The number of clusts is: ", numClusts
+    #print "The number of clusts is: ", numClusts
     if imType.lower() == "rgb":
         if alg.lower() == "kmeans":
             [ClusterIm, CCIm] = MyKmeans05(Im, imType, numClusts)

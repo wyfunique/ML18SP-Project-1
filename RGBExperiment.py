@@ -1,9 +1,7 @@
 import scipy.io as sio
-import matplotlib.pyplot as plt
 import numpy as np
 from os import listdir
 from os.path import isfile, join
-import DisplayImAngSegs as Display
 from MyMartinIndex05 import MyMartinIndex05
 import MyClust05 as Clust
 from MyClustEvalRGB05 import MyClustEvalRGB05
@@ -14,10 +12,11 @@ logging.basicConfig(filename="RGBScore.txt", level=logging.DEBUG)
 
 logging.info("evaluating RGB images using som")
 print "evaluating RGB images using som"
-mypath = "C:\S\ML\Gader_Project_1\Project_1\ImsAndSegs"
+#mypath = "C:\S\ML\Gader_Project_1\Project_1\ImsAndSegs"
+mypath = "C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\ImsAngSegs_part"
 onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".mat")]
 scoreList = []
-read_dictionary = np.load('best3Clusters.npy').item()
+read_dictionary = np.load('best3Clusters_part.npy').item()
 for onefile in onlyfiles:
     fileName = mypath+ '/' + onefile
     #fileName = "ImsAndTruths12003.mat"
@@ -32,7 +31,7 @@ for onefile in onlyfiles:
     print onefile, " clusters: ", numC
     logging.info(onefile+ " clusters: "+ str(numC))
     for numClust in numC:
-        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "som", "ImType", "rgb", "NumClusts", numClust)
+        [ClusterIm, CCIm] = Clust.MyClust05(im, "Algorithm", "kmeans", "ImType", "rgb", "NumClusts", numClust)
         score = min(MyClustEvalRGB05(CCIm, gt1), MyClustEvalRGB05(CCIm, gt2), MyClustEvalRGB05(CCIm, gt3))
         minScore = min(score, minScore)
         logging.info(onefile+" score: "+ str(score)+" clust: "+str(numClust))

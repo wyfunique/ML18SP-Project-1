@@ -1,10 +1,5 @@
 import scipy.io as sio
-import matplotlib.pyplot as plt
 import numpy as np
-from DisplayImAngSegs import DisplayImAndSegs
-from os import listdir
-from os.path import isfile, join
-import DisplayImAngSegs as Display
 from MyMartinIndex05 import MyMartinIndex05
 import MyClust05 as Clust
 
@@ -12,7 +7,7 @@ def MyClustEvalHyper05(ClusterIm, gt):
     score = 1.0
     # print ClusterIm.shape
     # if True:
-    maskMat = sio.loadmat("C:\S\ML\Gader_Project_1\Project_1\PaviaGrTruthMask.mat")
+    maskMat = sio.loadmat("C:\Users\zhaikeke\Documents\Spring2018\MachineLearning\Project1\PaviaGrTruthMask.mat")
     mask = maskMat.get("PaviaGrTruthMask")
     ClusterIm_2 = ClusterIm * mask
     #print "truth: ", truth.max()

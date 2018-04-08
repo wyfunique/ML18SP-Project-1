@@ -1,15 +1,6 @@
 import scipy.io as sio
-import matplotlib.pyplot as plt
 import numpy as np
-from DisplayImAngSegs import DisplayImAndSegs
-from os import listdir
-from os.path import isfile, join
-import DisplayImAngSegs as Display
-import kmeans
-import projectYF as yf
 from MyMartinIndex05 import MyMartinIndex05
-import fcm
-import MyClust05 as Clust
 
 def MyClustEvalRGB05(CCIm, gt):
     ''' 
