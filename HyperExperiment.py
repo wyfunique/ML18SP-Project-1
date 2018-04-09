@@ -20,11 +20,13 @@ im = imsAndSeg.get("PaviaHyperIm")
 truthfile = mypath + '/' + "PaviaGrTruth.mat"
 gtMat = sio.loadmat(truthfile)
 gt1 = gtMat.get("PaviaGrTruth")
+maskMat = sio.loadmat(mypath + '/' + "PaviaGrTruthMask.mat")
+mask = maskMat.get("PaviaGrTruthMask")
 minScore = 2.0
 scoreList = []
 for numClust in range(2, 10):
-    ClusterIm = Clust.MyClust05(im, "Algorithm", "fcm", "ImType", "Hyper", "NumClusts", numClust)
-    score = MyClustEvalHyper05(ClusterIm, gt1)
+    ClusterIm = Clust.MyClust05(im, "Algorithm", "kmeans", "ImType", "Hyper", "NumClusts", numClust)
+    score = MyClustEvalHyper05(ClusterIm, gt1, mask)
     minScore = min(score, minScore)
     logging.info(onefile+" score: "+str(score)+" clust: "+str(numClust))
     print onefile, " score: ", score, " clust: ", str(numClust)

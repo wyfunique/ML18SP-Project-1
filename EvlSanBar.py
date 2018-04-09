@@ -20,7 +20,7 @@ rgbMat = sio.loadmat(rgbfile)
 rgbGt = rgbMat.get("SanBarRGB")
 #print rgbMat
 
-numClust = 6
+numClust = 11
 ClusterIm_kmeans = Clust.MyClust05(im, "Algorithm", "kmeans", "ImType", "Hyper", "NumClusts", numClust)
 ClusterIm_som = Clust.MyClust05(im, "Algorithm", "som", "ImType", "Hyper", "NumClusts", numClust)
 ClusterIm_fcm = Clust.MyClust05(im, "Algorithm", "fcm", "ImType", "Hyper", "NumClusts", numClust)
@@ -28,16 +28,23 @@ ClusterIm_spectral = Clust.MyClust05(im, "Algorithm", "spectral", "ImType", "Hyp
 ClusterIm_gmm = Clust.MyClust05(im, "Algorithm", "gmm", "ImType", "Hyper", "NumClusts", numClust)
 
 fig = plt.figure()
+fig.suptitle("Compare 5 algorithms for Santa Barbara image", fontsize=16)
 ax1 = fig.add_subplot(321)
+ax1.set_title("Santa Barbara RGB image")
 ax1.imshow(rgbGt)
 ax1 = fig.add_subplot(322)
+ax1.set_title("Cluster using kmeans")
 ax1.imshow(ClusterIm_kmeans)
 ax1 = fig.add_subplot(323)
+ax1.set_title("Cluster using som")
 ax1.imshow(ClusterIm_som)
 ax1 = fig.add_subplot(324)
+ax1.set_title("Cluster using fcm")
 ax1.imshow(ClusterIm_fcm)
 ax1 = fig.add_subplot(325)
+ax1.set_title("Cluster using spectral")
 ax1.imshow(ClusterIm_spectral)
 ax1 = fig.add_subplot(326)
+ax1.set_title("Cluster using GMM")
 ax1.imshow(ClusterIm_gmm)
 plt.show()
