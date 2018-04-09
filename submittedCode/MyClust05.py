@@ -1,7 +1,5 @@
 import scipy.io as sio
 import numpy as np
-from DisplayImAngSegs import DisplayImAndSegs
-import DisplayImAngSegs as Display
 from MyKmeans05 import MyKmeans05
 from projectYF import MyGMM05
 from projectYF import MySpectral05
